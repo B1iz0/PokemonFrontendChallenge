@@ -12,10 +12,19 @@ export default class PokService {
     
         return await res.json();
     }
-    getAllPokemons() {
-        return this.getResource('/pokemon');
+
+    async getPokemon(id) {
+        const res = await this.getResource(`/pokemon/${id}`);
+        return this._transformPokemon(res);
     }
-    getPokemon(id) {
-        return this.getResource(`/pokemon/${id}`);
+
+    _transformPokemon(pokemon) {
+        return {
+            id: pokemon.id,
+            imageSrc: pokemon.sprites.other['official-artwork'].front_default,
+            name: pokemon.name,
+            type: pokemon.types[0].type.name.toUpperCase(),
+            species: pokemon.species.name
+        }
     }
 }
