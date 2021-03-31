@@ -1,0 +1,12 @@
+.app {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.card {
+    flex-direction: unset;   
+}
+
+.pokemonInfo {
+    width: 100%;
+}
