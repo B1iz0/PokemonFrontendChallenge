@@ -7,27 +7,33 @@ import PokemonListItem from '../pokemon-list-item'
 import './pokemon-list.css';
 
 export default class PokemonList extends Component {
+    constructor(props) {
+        super(props);
+
+        this.onClickNext = this.onClickNext.bind(this);
+        this.onClickPrev = this.onClickPrev.bind(this);
+    }
 
     pokService = new PokService();
     state = {
         pokemons: [],
         loading: true,
-        error: false
+        error: false,
+        minIndex: 0,
+        maxIndex: 9
     }
 
-    onPokemonLoaded = (pokemon) => {
+    onPokemonLoaded = (pokemons) => {
         this.setState({
-            pokemons: this.state.pokemons.concat(pokemon),
+            pokemons: pokemons,
             loading: false
         });
     }
 
     componentDidMount() {
-        for (let i = 1; i <= 100; i++) {
-            this.pokService.getPokemon(i)
+        this.pokService.getAllPokemons()
                 .then(this.onPokemonLoaded)
                 .catch(this.onError);
-        }
     }
 
     onError = (err) => {
@@ -37,17 +43,39 @@ export default class PokemonList extends Component {
         })
     }
 
+    onClickNext() {
+        const {pokemons, maxIndex, minIndex} = this.state;
+        if (maxIndex === pokemons.length) {
+            return;
+        }
+        this.setState({
+            maxIndex: maxIndex + 10,
+            minIndex: minIndex + 10
+        });
+    };
+
+    onClickPrev() {
+        const {maxIndex, minIndex} = this.state;
+        if (minIndex === 0) {
+            return;
+        }
+        this.setState({
+            maxIndex: maxIndex - 10,
+            minIndex: minIndex - 10
+        });
+    };
+
     render() {
-        const {pokemons, loading, error} = this.state;
-        const {onClickPokemon} = this.props;
+        const {pokemons, loading, error, minIndex, maxIndex} = this.state;
+        const {onClickPokemon, filter, term} = this.props;
         
         const errorLoading = error ? <ErrorLoading/> : null;
         const spinner = loading ? <Spinner/> : null;
 
-        const visiblePokemons = pokemons.map((item) => {
+        const visiblePokemons = pokemons.slice(minIndex, maxIndex + 1).map((item) => {
             const {id, ...pokemonProps} = item;
             return (
-                <li key={id} onClick={() => onClickPokemon(id)} className="list-group-item pokemon">
+                <li key={id} onClick={() => onClickPokemon(id)} className="list-group-item d-flex pokemon">
                     <PokemonListItem {...pokemonProps}/>
                 </li>
             );
@@ -56,11 +84,17 @@ export default class PokemonList extends Component {
         const content = !(loading || error) ? visiblePokemons : null
 
         return (
-            <ul>
-                {errorLoading}
-                {spinner}
-                {content}
-            </ul>
+            <div>
+                <ul className="list-group pokemonList">
+                    {errorLoading}
+                    {spinner}
+                    {content}
+                </ul>
+                <div className="navigation d-flex justify-content-center">
+                    <button type="button" onClick={this.onClickPrev} className="btn btn-light navigation-prev">Previous</button>
+                    <button type="button" onClick={this.onClickNext} className="btn btn-light navigation-next">Next</button>
+                </div>
+            </div>
         );
     };
 };
