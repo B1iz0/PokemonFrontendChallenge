@@ -7,7 +7,7 @@ export default class PokemonListItem extends Component {
         return (
             <>
                 <img src={imageSrc} width="120px" alt='pokemon'></img>
-                <h5 className="list-item-title">{name}</h5>
+                <h5>{name}</h5>
             </>
         );
     }

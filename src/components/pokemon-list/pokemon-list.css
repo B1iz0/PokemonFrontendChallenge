@@ -1,4 +1,31 @@
+.pokemonList {
+    padding: 0;
+    flex-flow: wrap;
+}
+
 .pokemon {
-    width: 300px;
     display: inline-block;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pokemon h5 {
+    display: inline;
+    width: unset;
+    margin-bottom: 0;
+}
+
+.d-flex {
+    display: inline-flex;
+}
+
+.navigation {
+    margin: 25px 0;
+}
+
+.list-group-item+.list-group-item {
+    border-top-width: 1px;
 }
