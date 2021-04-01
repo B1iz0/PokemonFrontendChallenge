@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import './pokemon-list-item.css';
 
 export default class PokemonListItem extends Component {
     render() {
-        const {name} = this.props;
+        const {imageSrc, name} = this.props;
         return (
-            <div>
-                {name}
-            </div>
+            <>
+                <img src={imageSrc} width="120px" alt='pokemon'></img>
+                <h5 className="list-item-title">{name}</h5>
+            </>
         );
     }
 }
