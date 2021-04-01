@@ -1,0 +1,19 @@
+.baseStatsTitle {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.statProgress {
+    width: 300px;
+    margin: auto 0;
+}
+
+.stat {
+    width: 200px;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.statNumber {
+    margin-left: 20px;
+}

@@ -4,7 +4,7 @@
 }
 
 .card {
-    flex-direction: unset;   
+    flex-direction: column;   
 }
 
 .pokemonInfo {

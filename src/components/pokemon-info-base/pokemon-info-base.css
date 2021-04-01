@@ -1,0 +1,16 @@
+.pokemonBaseInfo {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.pokemonBaseInfoTitle {
+    text-align: center;
+}
+
+.btn {
+    margin-left: 0.4rem;
+}
+
+.list-abilities li:first-child {
+    padding-top: 0;
+}
