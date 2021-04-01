@@ -18,6 +18,32 @@ export default class PokService {
         return this._transformPokemon(res);
     }
 
+    async getAllPokemons() {
+        const data = [];
+        let allPokemons1 = []
+        await fetch('https://pokeapi.co/api/v2/pokemon?limit=1118')
+            .then(response => response.json())
+            .then(allPokemons => {
+                allPokemons1 = allPokemons;
+                
+            });
+        for (let i = 0; i < allPokemons1.results.length; i++) {
+            if (i === 164) {
+                continue;
+            }
+            let currentPokemon = await this.fetchPokemonData(allPokemons1.results[i]);
+            data.push(currentPokemon);
+        }
+        return data;
+    }
+
+    async fetchPokemonData(pokemon) {
+        let url = pokemon.url;
+        const res =  await fetch(url)
+            .then(response => response.json());
+        return this._transformPokemon(res);
+    }
+
     _transformPokemon(pokemon) {
         // console.log(pokemon);
         return {
