@@ -19,12 +19,17 @@ export default class PokService {
     }
 
     _transformPokemon(pokemon) {
+        // console.log(pokemon);
         return {
             id: pokemon.id,
             imageSrc: pokemon.sprites.other['official-artwork'].front_default,
             name: pokemon.name,
-            type: pokemon.types[0].type.name.toUpperCase(),
-            species: pokemon.species.name
+            types: pokemon.types,
+            species: pokemon.species.name,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            abilities: pokemon.abilities,
+            stats: pokemon.stats
         }
     }
 }
