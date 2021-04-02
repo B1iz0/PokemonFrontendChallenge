@@ -1,34 +1,66 @@
 import React, { Component } from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
+import PokService from '../../services/pokService';
 
 import './pokemon-type-filter.css';
 
 export default class PokemonTypeFilter extends Component {
-    constructor(props) {
-        super(props);
-        this.buttons = [
-            {name: 'all', label: 'Все'},
-            {name: 'like', label: 'Понравилось'}
-        ]
+
+    state = {
+        buttons: [],
+        loading: true
+    }
+    pokService = new PokService();
+
+    onTypesLoaded = (types) => {
+        this.setState({
+            buttons: types,
+            loading: false
+        });
+    }
+
+    componentDidMount() {
+        this.pokService.getTypes()
+                .then(this.onTypesLoaded)
     }
 
     render() {
-        const buttons = this.buttons.map(({name, label}) => {
-            const {filter, onFilterSelect} = this.props;
-            const active = filter === name;
-            const clazz = active ? 'btn-info' : 'btn-outline-secondary'
-            return (
-                <button 
-                    key={name} 
-                    type="button" 
-                    className={`btn ${clazz}`}
-                    onClick={() => onFilterSelect(name)}>{label}</button>
+        let buttons = [];
+        if (this.state.buttons.length === 0) {
+            buttons.push(
+                <Dropdown.Item 
+                    key="default"
+                    href="#">Default</Dropdown.Item>
+            );
+        } else {
+            const {onFilterSelect} = this.props;
+            buttons.push(
+                <Dropdown.Item 
+                    key="all"
+                    onClick={() => onFilterSelect('all')}
+                    href="#">all</Dropdown.Item>
             )
-        });
+            buttons = buttons.concat(this.state.buttons.map(name => {
+                return (
+                    <Dropdown.Item 
+                        key={name.name} 
+                        onClick={() => onFilterSelect(name.name)}
+                        href="#">{name.name}</Dropdown.Item>
+                )
+            }));
+        }
+         
 
         return (
-            <div className="btn-group">
-                {buttons}
-            </div>
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Types
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    {buttons}
+                </Dropdown.Menu>
+            </Dropdown>
         );
     }
 };

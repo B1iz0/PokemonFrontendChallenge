@@ -44,8 +44,17 @@ export default class PokService {
         return this._transformPokemon(res);
     }
 
+    async getTypes() {
+        const data = [];
+        const res = await this.getResource('/type');
+        for (let i = 0; i < res.results.length; i++) {
+            let currentType = this._transformType(res.results[i]);
+            data.push(currentType);
+        }
+        return data;
+    }
+
     _transformPokemon(pokemon) {
-        // console.log(pokemon);
         return {
             id: pokemon.id,
             imageSrc: pokemon.sprites.other['official-artwork'].front_default,
@@ -56,6 +65,12 @@ export default class PokService {
             weight: pokemon.weight,
             abilities: pokemon.abilities,
             stats: pokemon.stats
+        }
+    }
+
+    _transformType(type) {
+        return {
+            name: type.name
         }
     }
 }

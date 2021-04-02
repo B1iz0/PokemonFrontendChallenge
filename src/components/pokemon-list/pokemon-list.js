@@ -45,7 +45,7 @@ export default class PokemonList extends Component {
 
     onClickNext() {
         const {pokemons, maxIndex, minIndex} = this.state;
-        if (maxIndex === pokemons.length) {
+        if (maxIndex >= pokemons.length) {
             return;
         }
         this.setState({
@@ -72,15 +72,29 @@ export default class PokemonList extends Component {
         const errorLoading = error ? <ErrorLoading/> : null;
         const spinner = loading ? <Spinner/> : null;
 
-        const visiblePokemons = pokemons.slice(minIndex, maxIndex + 1).map((item) => {
-            const {id, ...pokemonProps} = item;
-            return (
-                <li key={id} onClick={() => onClickPokemon(id)} className="list-group-item d-flex pokemon">
-                    <PokemonListItem {...pokemonProps}/>
-                </li>
-            );
-        });
-
+        let visiblePokemons = [];
+        if (pokemons.length !== 0) {
+            visiblePokemons = pokemons.filter(item => {
+                let isFilterType = false;
+                let isFilterSearch = false;
+                if (item.name.indexOf(term.toLowerCase()) > -1) {
+                    isFilterSearch = true;
+                }
+                item.types.forEach(type => {
+                    if (type.type.name === filter || filter === 'all') {
+                        isFilterType = true;
+                    }
+                })
+                return isFilterType && isFilterSearch;
+            }).slice(minIndex, maxIndex + 1).map((item) => {
+                const {id, ...pokemonProps} = item;
+                return (
+                    <li key={id} onClick={() => onClickPokemon(id)} className="list-group-item d-flex pokemon">
+                        <PokemonListItem {...pokemonProps}/>
+                    </li>
+                );
+            });
+        }
         const content = !(loading || error) ? visiblePokemons : null
 
         return (
