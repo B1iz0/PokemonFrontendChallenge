@@ -5,6 +5,8 @@ import PokemonStats from '../pokemon-stats';
 import Spinner from '../spinner';
 import ErrorLoading from '../error-loading';
 
+import './pokemon-info.css';
+
 export default class PokemonInfo extends Component {
 
     pokService = new PokService();
