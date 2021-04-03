@@ -26,35 +26,37 @@ export default class PokemonTypeFilter extends Component {
 
     render() {
         let buttons = [];
+        const {onFilterSelect} = this.props;
         if (this.state.buttons.length === 0) {
-            buttons.push(
-                <Dropdown.Item 
-                    key="default"
-                    href="#">Default</Dropdown.Item>
-            );
-        } else {
-            const {onFilterSelect} = this.props;
             buttons.push(
                 <Dropdown.Item 
                     key="all"
                     onClick={() => onFilterSelect('all')}
-                    href="#">all</Dropdown.Item>
+                    href="#">All</Dropdown.Item>
+            );
+        } else {
+            buttons.push(
+                <Dropdown.Item 
+                    key="all"
+                    onClick={() => onFilterSelect('all')}
+                    href="#">All</Dropdown.Item>
             )
             buttons = buttons.concat(this.state.buttons.map(name => {
+                let transformFilter = name.name[0].toUpperCase() + name.name.slice(1);
                 return (
                     <Dropdown.Item 
                         key={name.name} 
                         onClick={() => onFilterSelect(name.name)}
-                        href="#">{name.name}</Dropdown.Item>
+                        href="#">{transformFilter}</Dropdown.Item>
                 )
             }));
         }
-         
+        let transformFilter = this.props.filter[0].toUpperCase() + this.props.filter.slice(1);
 
         return (
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Types
+                    {transformFilter}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
