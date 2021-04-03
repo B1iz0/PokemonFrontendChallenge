@@ -29,11 +29,10 @@ export default class PokService {
             });
         for (let i = 0; i < allPokemons1.results.length; i++) {
             let currentPokemon = await this.fetchPokemonData(allPokemons1.results[i])
-            if (currentPokemon !== null) {
+            if (!!currentPokemon.id) {
                 data.push(currentPokemon);
             }
         }
-        console.log(data);
         return data;
     }
 
