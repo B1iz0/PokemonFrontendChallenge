@@ -20,7 +20,9 @@ export default class PokemonList extends Component {
         loading: true,
         error: false,
         minIndex: 0,
-        maxIndex: 9
+        maxIndex: 9,
+        term: '',
+        filter: 'all'
     }
 
     onPokemonLoaded = (pokemons) => {
@@ -34,6 +36,41 @@ export default class PokemonList extends Component {
         this.pokService.getAllPokemons()
                 .then(this.onPokemonLoaded)
                 .catch(this.onError);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.term !== prevProps.term) {
+            this.updateTerm();
+        }
+        if (this.props.filter !== prevProps.filter) {
+            this.updateFilter();
+        }
+    }
+
+    async updateTerm() {
+        const {term} = this.props;
+
+        if (!term) {
+            return;
+        }
+        await this.setState({
+            term,
+            minIndex: 0,
+            maxIndex: 9
+        })
+    }
+
+    async updateFilter() {
+        const {filter} = this.props;
+
+        if (!filter) {
+            return;
+        }
+        await this.setState({
+            filter,
+            minIndex: 0,
+            maxIndex: 9
+        })
     }
 
     onError = (err) => {
