@@ -1,7 +1,7 @@
 # PokemonFrontendChallenge
 
 ## Preview
-  https://pokemonsmaskhov.000webhostapp.com/
+  https://b1iz0.github.io/PokemonFrontendChallenge/
 
 ## Frontend test assignment
   * Single Page app displaying ALL Pokemon with their avatar, stats, basic information and type
