@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/PokemonFrontendChallenge/static/css/main.e2235b54.chunk.css",
+    "main.js": "/PokemonFrontendChallenge/static/js/main.aba7258c.chunk.js",
+    "main.js.map": "/PokemonFrontendChallenge/static/js/main.aba7258c.chunk.js.map",
+    "runtime-main.js": "/PokemonFrontendChallenge/static/js/runtime-main.0894d556.js",
+    "runtime-main.js.map": "/PokemonFrontendChallenge/static/js/runtime-main.0894d556.js.map",
+    "static/js/2.6bde927a.chunk.js": "/PokemonFrontendChallenge/static/js/2.6bde927a.chunk.js",
+    "static/js/2.6bde927a.chunk.js.map": "/PokemonFrontendChallenge/static/js/2.6bde927a.chunk.js.map",
+    "index.html": "/PokemonFrontendChallenge/index.html",
+    "static/css/main.e2235b54.chunk.css.map": "/PokemonFrontendChallenge/static/css/main.e2235b54.chunk.css.map",
+    "static/js/2.6bde927a.chunk.js.LICENSE.txt": "/PokemonFrontendChallenge/static/js/2.6bde927a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0894d556.js",
+    "static/js/2.6bde927a.chunk.js",
+    "static/css/main.e2235b54.chunk.css",
+    "static/js/main.aba7258c.chunk.js"
+  ]
+}
