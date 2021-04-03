@@ -77,7 +77,6 @@ export default class PokemonList extends Component {
             visiblePokemons = pokemons.filter(item => {
                 let isFilterType = false;
                 let isFilterSearch = false;
-                console.log(item);
                 if (item.name.indexOf(term.toLowerCase()) > -1) {
                     isFilterSearch = true;
                 }
