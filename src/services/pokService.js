@@ -28,19 +28,25 @@ export default class PokService {
                 
             });
         for (let i = 0; i < allPokemons1.results.length; i++) {
-            if (i === 164) {
-                continue;
+            let currentPokemon = await this.fetchPokemonData(allPokemons1.results[i])
+            if (currentPokemon !== null) {
+                data.push(currentPokemon);
             }
-            let currentPokemon = await this.fetchPokemonData(allPokemons1.results[i]);
-            data.push(currentPokemon);
         }
+        console.log(data);
         return data;
     }
 
     async fetchPokemonData(pokemon) {
         let url = pokemon.url;
         const res =  await fetch(url)
-            .then(response => response.json());
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            });
         return this._transformPokemon(res);
     }
 
@@ -55,6 +61,9 @@ export default class PokService {
     }
 
     _transformPokemon(pokemon) {
+        if (pokemon === null) {
+            return {};
+        }
         return {
             id: pokemon.id,
             imageSrc: pokemon.sprites.other['official-artwork'].front_default,
